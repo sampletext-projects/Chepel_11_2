@@ -82,31 +82,32 @@ int main()
 	cout << "Автор: Чепель Егор Максимович" << endl;
 	cout << "Программа для построения частотного алфавита строки" << endl;
 
-	string file = "f.txt"; //файл текущих соревнований
-
-	ifstream f(file);
-	f.peek();
-	if (!f.good())
+	ifstream f1("f1.txt");
+	ofstream f2("f2.txt");
+	f1.peek();
+	if (!f1.good())
 	{
-		cout << "Ошибка при открытии файла.\nПроверьте наличие и заполненность файла f.txt\n";
+		cout << "Ошибка при открытии файла.\nПроверьте наличие и заполненность файла f1.txt\n";
 	}
 	else
 	{
-		while (!f.eof()) //открываем файл
+		while (!f1.eof()) //открываем файл
 		{
 			string v;
-			getline(f, v); //считываем строку
+			getline(f1, v); //считываем строку
 			int size;
 			int** freqs = frequencies(v, size);
 			sort(freqs, size);
 			for (int i = 0; i < size; i++)
 			{
 				char c = (char)freqs[0][i];
-				cout << c << ": " << freqs[1][i] << "\n";
+				f2 << c << ": " << freqs[1][i] << "\n";
 			}
+			f2 << "---\n";
 		}
 	}
-	f.close();
+	f1.close();
+	f2.close();
 
 	system("pause");
 
